@@ -14,5 +14,8 @@ export default function errorHandler(
   if (error.code === "BodyInvalid") {
     return res.status(422).send(error.message);
   }
+  if (error.code === "Conflict") {
+    return res.status(409).send(error.message);
+  }
   res.sendStatus(500);
 }
