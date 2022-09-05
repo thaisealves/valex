@@ -81,7 +81,7 @@ export async function createCard(
   await getApiKey(apiKey);
   const employee = await getEmployee(employeeId);
   await ownCardType(cardType, employeeId);
-
+  const cryptr = new Cryptr(process.env.CRYPTR_PASS);
   const newCard = {
     employeeId,
     number: createCardNumber(),
@@ -93,4 +93,5 @@ export async function createCard(
     type: cardType,
   };
   await insert(newCard);
+  return cryptr.decrypt(newCard.securityCode);
 }

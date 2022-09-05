@@ -1,11 +1,24 @@
 import { Router } from "express";
+import { apiKeyValidation } from "../middlewares/cardsMiddleware.js";
+import { validateSchema } from "../middlewares/validateSchema.js";
 import {
-  apiKeyValidation,
-  bodyValidation,
-} from "../middlewares/cardsMiddleware.js";
-import { creatingCard } from "../controllers/cardsController.js";
+  creatingCard,
+  activatingCard,
+} from "../controllers/cardsController.js";
+import cardSchemas from "../middlewares/schemas/cardSchemas.js";
 const route = Router();
 
-route.post("/card", apiKeyValidation, bodyValidation, creatingCard);
+route.post(
+  "/card",
+  apiKeyValidation,
+  validateSchema(cardSchemas.createSchema),
+  creatingCard
+);
+
+route.put(
+  "/card/:cardId",
+  validateSchema(cardSchemas.activeSchema),
+  activatingCard
+);
 
 export default route;

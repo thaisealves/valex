@@ -17,6 +17,6 @@ export default function errorHandler(
   if (error.code === "Conflict") {
     return res.status(409).send(error.message);
   }
-  
+  console.log(error);
   res.sendStatus(500);
 }

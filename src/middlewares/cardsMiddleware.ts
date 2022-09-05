@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import joi from "joi";
+import cardSchemas from "./schemas/cardSchemas.js";
 
 export function apiKeyValidation(
   req: Request,
@@ -14,24 +14,3 @@ export function apiKeyValidation(
   res.locals.apiKey = apiKey;
   next();
 }
-
-export function bodyValidation(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const { error } = bodySchema.validate(req.body);
-  if (error) {
-    console.log(error)
-    throw { code: "BodyInvalid", message: "Corpo inválido" };
-  }
-  next();
-}
-
-const bodySchema = joi.object({
-  cardType: joi
-    .string()
-    .valid("groceries", "restaurant", "transport", "education", "health")
-    .required(),
-  employeeId: joi.number().required(),
-});
