@@ -8,7 +8,7 @@ export async function gettingTransaction(cardId: number) {
   let balance: number = 0;
 
   recharge.map((each) => (balance += each.amount));
-  payment.map((each) => (balance += each.amount));
+  payment.map((each) => (balance -= each.amount));
 
   return {
     balance,

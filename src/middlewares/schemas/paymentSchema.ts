@@ -1,6 +1,6 @@
 import joi from "joi";
 
-const purchaseSchema = joi.object({
+const paymentSchema = joi.object({
   cardId: joi.number().required(),
   password: joi
     .string()
@@ -11,4 +11,4 @@ const purchaseSchema = joi.object({
   amount: joi.number().positive().required(),
 });
 
-export default purchaseSchema;
+export default paymentSchema;
