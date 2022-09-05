@@ -10,14 +10,14 @@ import cardSchemas from "../middlewares/schemas/cardSchemas.js";
 const route = Router();
 
 route.post(
-  "/card",
+  "/card/create",
   apiKeyValidation,
   validateSchema(cardSchemas.createSchema),
   creatingCard
 );
 
 route.put(
-  "/card/:cardId",
+  "/card/activate/:cardId",
   validateSchema(cardSchemas.activeSchema),
   activatingCard
 );

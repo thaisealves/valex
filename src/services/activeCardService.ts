@@ -3,6 +3,21 @@ import { findCard } from "./findCard.js";
 import Cryptr from "cryptr";
 import bcrypt from "bcrypt";
 
+export async function activeCard(
+  id: number,
+  password: string,
+  securityCode: string
+) {
+  const card = await findCard(id);
+  isActive(card.password);
+  validateSecurityCode(securityCode, card.securityCode);
+  const passwordHash = validatePassword(password);
+  const cardData: CardUpdateData = {
+    password: passwordHash,
+  };
+  await update(id, cardData);
+}
+
 function isActive(password: string | null) {
   if (password) {
     throw { code: "Conflict", message: "Cartão já ativado" };
@@ -24,19 +39,4 @@ function validatePassword(password: string) {
   const passwordHash = bcrypt.hashSync(password, 10);
 
   return passwordHash;
-}
-
-export async function activeCard(
-  id: number,
-  password: string,
-  securityCode: string
-) {
-  const card = await findCard(id);
-  isActive(card.password);
-  validateSecurityCode(securityCode, card.securityCode);
-  const passwordHash = validatePassword(password);
-  const cardData: CardUpdateData = {
-    password: passwordHash,
-  };
-  await update(id, cardData);
 }

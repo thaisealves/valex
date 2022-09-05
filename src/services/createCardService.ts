@@ -12,6 +12,28 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+export async function createCard(
+  cardType: TransactionTypes,
+  employeeId: number,
+  apiKey: string
+) {
+  await getApiKey(apiKey);
+  const employee = await getEmployee(employeeId);
+  await ownCardType(cardType, employeeId);
+  const cryptr = new Cryptr(process.env.CRYPTR_PASS);
+  const newCard = {
+    employeeId,
+    number: createCardNumber(),
+    cardholderName: createCardholderName(employee),
+    securityCode: createSecurityCode(),
+    expirationDate: createExpirationDate(),
+    isVirtual: false,
+    isBlocked: false,
+    type: cardType,
+  };
+  await insert(newCard);
+  return cryptr.decrypt(newCard.securityCode);
+}
 async function getApiKey(apiKey: string) {
   const company = await findByApiKey(apiKey);
   if (!company) {
@@ -71,27 +93,4 @@ function createSecurityCode() {
 
   const encryptedSecurityCode = cryptr.encrypt(faker.finance.creditCardCVV());
   return encryptedSecurityCode;
-}
-
-export async function createCard(
-  cardType: TransactionTypes,
-  employeeId: number,
-  apiKey: string
-) {
-  await getApiKey(apiKey);
-  const employee = await getEmployee(employeeId);
-  await ownCardType(cardType, employeeId);
-  const cryptr = new Cryptr(process.env.CRYPTR_PASS);
-  const newCard = {
-    employeeId,
-    number: createCardNumber(),
-    cardholderName: createCardholderName(employee),
-    securityCode: createSecurityCode(),
-    expirationDate: createExpirationDate(),
-    isVirtual: false,
-    isBlocked: false,
-    type: cardType,
-  };
-  await insert(newCard);
-  return cryptr.decrypt(newCard.securityCode);
 }
