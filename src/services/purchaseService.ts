@@ -1,8 +1,8 @@
 import { findCard } from "./findCard.js";
 import { isActive } from "./isCardActive.js";
 import { validatePassword } from "./validatePassword.js";
-import { findById } from "../repositories/businessRepository.js";
 import { TransactionTypes } from "../repositories/cardRepository";
+import { findBusiness } from "./findBusiness.js";
 
 export async function createPurchase(
   cardId: number,
@@ -21,15 +21,6 @@ function isBlocked(blocked: boolean) {
   if (blocked) {
     throw { code: "Conflict", message: "Cartão bloqueado" };
   }
-}
-
-async function findBusiness(businessId: number) {
-  const business = await findById(businessId);
-
-  if (!business) {
-    throw { code: "NotFound", message: "Empresa não existe" };
-  }
-  return business;
 }
 
 function validType(cardType: TransactionTypes, businessType: TransactionTypes) {

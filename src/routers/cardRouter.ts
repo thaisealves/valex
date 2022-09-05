@@ -4,7 +4,8 @@ import { validateSchema } from "../middlewares/validateSchema.js";
 import {
   creatingCard,
   activatingCard,
-  blockingCard
+  blockingCard,
+  getTransaction,
 } from "../controllers/cardsController.js";
 import cardSchemas from "../middlewares/schemas/cardSchemas.js";
 const route = Router();
@@ -27,4 +28,5 @@ route.put(
   blockingCard
 );
 
+route.get("/card/transaction/:cardId", getTransaction);
 export default route;
