@@ -92,5 +92,5 @@ export async function createCard(
     isBlocked: false,
     type: cardType,
   };
-  // await insert(newCard);
+  await insert(newCard);
 }
