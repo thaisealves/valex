@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import cardSchemas from "./schemas/cardSchemas.js";
 
 export function apiKeyValidation(
   req: Request,

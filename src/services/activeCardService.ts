@@ -1,5 +1,5 @@
 import { CardUpdateData, update } from "../repositories/cardRepository.js";
-import { findCard } from "../utils/findCard.js";
+import { findCard } from "./findCard.js";
 import Cryptr from "cryptr";
 import bcrypt from "bcrypt";
 

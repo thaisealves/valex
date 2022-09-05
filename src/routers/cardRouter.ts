@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { apiKeyValidation } from "../middlewares/cardsMiddleware.js";
+import { apiKeyValidation } from "../middlewares/apiKeyValidation.js";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import {
   creatingCard,
