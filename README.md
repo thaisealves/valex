@@ -9,11 +9,10 @@ Using Typescript to make a system example on how to create benefit cards for emp
 <div align="center">
 
   <h3>Built With</h3>
-
-  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" height="30px"/>
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="30px"/>
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" height="30px"/>  
-  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express.js&logoColor=white" height="30px"/>
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="30px" alt="Typescript"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" height="30px" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" height="30px" alt="Node.js"/>  
+  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express.js&logoColor=white" height="30px" alt="Express.js"/>
 </div>
 
 ## Features:
@@ -77,7 +76,7 @@ PUT "/card/activate/:cardId"
 
 | Params   | Type      | Description           |
 | :------- | :-------- | :-------------------- |
-| `cardId` | `integer` | **Required**. card Id |
+| `cardId` | `integer` | **Required**. Card ID |
 
 `Password length: 4`
 
@@ -103,7 +102,7 @@ PUT /card/block/:cardId
 
 | Params   | Type      | Description           |
 | :------- | :-------- | :-------------------- |
-| `cardId` | `integer` | **Required**. card Id |
+| `cardId` | `integer` | **Required**. Card ID |
 
 #
 
@@ -129,7 +128,7 @@ POST /recharges/:cardId
 
 | Params   | Type      | Description           |
 | :------- | :-------- | :-------------------- |
-| `cardId` | `integer` | **Required**. card Id |
+| `cardId` | `integer` | **Required**. Card ID |
 
 #
 
@@ -162,4 +161,16 @@ GET /card/transaction/:cardId
 | :------- | :-------- | :-------------------- |
 | `cardId` | `integer` | **Required**. Card ID |
 
+### Response :
+```json
+{
+  "balance": 35000,
+  "transactions": [
+		{ "id": 1, "cardId": 1, "businessId": 1, "businessName": "Business", "timestamp": "date", "amount": 5000 }
+	],
+  "recharges": [
+		{ "id": 1, "cardId": 1, "timestamp": "date", "amount": 40000 }
+	]
+}
+```
 #
