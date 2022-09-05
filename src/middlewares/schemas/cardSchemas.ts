@@ -15,5 +15,12 @@ const activeSchema = joi.object({
     .pattern(/^[0-9]+$/)
     .required(),
 });
+const blockSchema = joi.object({
+  password: joi
+    .string()
+    .length(4)
+    .pattern(/^[0-9]+$/)
+    .required(),
+});
 
-export default { createSchema, activeSchema };
+export default { createSchema, activeSchema, blockSchema };

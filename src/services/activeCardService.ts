@@ -1,32 +1,12 @@
-import {
-  CardUpdateData,
-  findById,
-  update,
-} from "../repositories/cardRepository.js";
-import dayjs from "dayjs";
+import { CardUpdateData, update } from "../repositories/cardRepository.js";
+import { findCard } from "../utils/findCard.js";
 import Cryptr from "cryptr";
 import bcrypt from "bcrypt";
-export async function findCard(id: number) {
-  const card = await findById(id);
-  if (!card) {
-    throw { code: "NotFound", message: "Funcionário não encontrado" };
-  }
-  if (isExpired(card.expirationDate)) {
-    throw { code: "Conflict", message: "Cartão expirado" };
-  }
-  if (card.password) {
+
+function isActive(password: string | null) {
+  if (password) {
     throw { code: "Conflict", message: "Cartão já ativado" };
   }
-  return card;
-}
-
-function isExpired(expirationDate: string) {
-  const [month, year] = expirationDate.split("/");
-  const expiration = dayjs()
-    .month(Number(month) - 1)
-    .year(Number(year) + 2000);
-
-  return !dayjs().isBefore(expiration, "month");
 }
 
 function validateSecurityCode(givenCode: string, originalCode: string) {
@@ -52,6 +32,7 @@ export async function activeCard(
   securityCode: string
 ) {
   const card = await findCard(id);
+  isActive(card.password);
   validateSecurityCode(securityCode, card.securityCode);
   const passwordHash = validatePassword(password);
   const cardData: CardUpdateData = {
